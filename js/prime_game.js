@@ -59,7 +59,7 @@ function init_game_board(){
     for(var i=0;i<ROW_SIZE;i++){
         for(var j=0;j<COL_SIZE;j++){
             no = COL_SIZE*i + j;
-            document.getElementById("td_" + String(no)).addEventListener('click', click_td, false);
+            document.getElementById("td_" + String(no)).addEventListener('touchstart', click_td, false);
         }
     }
 }
