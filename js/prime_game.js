@@ -14,7 +14,7 @@ var playing = false;
 
 var current_status = STATUS_NORMAL;
 
-var DEFAULT_TIME = 180;
+var DEFAULT_TIME = 60;
 
 const KUMA_NORMAL = "img/kuma_kuro.png"
 const USA_NORMAL = "img/usa_kuro.png"
