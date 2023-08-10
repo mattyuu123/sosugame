@@ -6,6 +6,30 @@ const INITIAL_PRIME_NUMS = 5;
 var remaining;
 var score;
 
+const STATUS_NORMAL = 0;
+const STATUS_CRY = 1;
+const STATUS_JOY = 2;
+
+var playing = false;
+
+var current_status = STATUS_NORMAL;
+
+var DEFAULT_TIME = 180;
+
+const KUMA_NORMAL = "img/kuma_kuro.png"
+const USA_NORMAL = "img/usa_kuro.png"
+const KUMA_CRY = "img/kuma_cry.png"
+const USA_CRY = "img/usa_cry.png"
+const KUMA_JOY = "img/kuma_joy.png"
+const USA_JOY = "img/usa_joy.png"
+
+var status_change_counter = 0;
+
+let timeLeft = DEFAULT_TIME;
+let timerInterval;
+
+
+
 window.onload = function(){
     score = 0;
     $('#score').text(String(score));
@@ -22,7 +46,11 @@ function shuffle(array) {
   }
 
 function init_game_board(){
-
+    current_status = STATUS_NORMAL;
+    $("#kuma").attr("src", KUMA_NORMAL);
+    $("#usagi").attr("src", USA_NORMAL);
+    status_change_counter = 0;
+  
     $('#game_table').empty();
 
     remaining = INITIAL_PRIME_NUMS;
@@ -65,6 +93,9 @@ function init_game_board(){
 }
 
 function click_td(){
+  if(!playing){
+    return;
+  }
     if(PRIMES.includes(Number($(this).attr("val_num")))){
         $(this).addClass("yellow");
         score += 1;
@@ -74,9 +105,61 @@ function click_td(){
         if(remaining == 0){
             init_game_board();
         }
+        current_status = STATUS_JOY;
+        $("#kuma").attr("src", KUMA_JOY);
+        $("#usagi").attr("src", USA_JOY);
+        status_change_counter = 4;
     
     } else {
         $(this).addClass("red");
+        current_status = STATUS_CRY;
+        $("#kuma").attr("src", KUMA_CRY);
+        $("#usagi").attr("src", USA_CRY);
+        status_change_counter = 4;
     }
     this.removeEventListener('click', click_td, false);
+}
+
+
+function start_game(){
+  timeLeft = DEFAULT_TIME;
+  document.getElementById('rtime').innerHTML = secondsToMinutesString(timeLeft);
+  score = 0
+  $('#score').text(String(score));
+
+
+  init_game_board();
+  playing = true;
+  $('#start_button').text('RESTART');
+  if (timerInterval){
+    clearInterval(timerInterval);
+  }
+  timerInterval = setInterval(updateTime, 1000);
+
+}
+
+function secondsToMinutesString(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}分${remainingSeconds.toString().padStart(2, '0')}秒`;
+}
+
+
+
+function updateTime() {
+    timeLeft--; // 残り時間を1減少させる
+    document.getElementById('rtime').innerHTML = secondsToMinutesString(timeLeft);
+    status_change_counter-=1;
+    if(status_change_counter==1){
+      $("#kuma").attr("src", KUMA_NORMAL);
+      $("#usagi").attr("src", USA_NORMAL);
+    }
+
+    if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        $("#kuma").attr("src", KUMA_JOY);
+        $("#usagi").attr("src", USA_JOY);
+        $('#start_button').text('START');
+        playing = false;
+    }
 }

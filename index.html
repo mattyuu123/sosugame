@@ -21,7 +21,7 @@
         <div class="left">
           <div class="time">
             <p class="sabutitle">タイム</p>
-            <p>3分00秒</p>
+            <p id="rtime">3分00秒</p>
           </div>
           <div class="sukoa">
             <p class="sabutitle">スコア</p>
@@ -31,8 +31,8 @@
         <div class="right">
           <p class="start">残り素数<span id="remaining"></span>個</p>
           <div class="animal">
-            <img src="img/usa_kuro.png" width="80px" alt="うさぎさん" />
-            <img src="img/kuma_kuro.png" width="80px" alt="くまさん" />
+            <img id="usagi" src="img/usa_kuro.png" width="80px" alt="うさぎさん" />
+            <img id="kuma" src="img/kuma_kuro.png" width="80px" alt="くまさん" />
           </div>
         </div>
       </div>
@@ -42,17 +42,10 @@
       </div>
       <div class="gamearea_foot">
         <div class="buttons">
-          <bttonn class="start-button" onclick="" >START</bttonn>
+          <bttonn id="start_button" class="start-button" onclick="start_game()" >START</bttonn>
         </div>
         <div class="title">Prime Hunt Grid</div>
       </div>
     </div>
-
-    <!--
-    <audio src="#" id="sound"></audio>
-    <audio src="#" id="bgm"></audio>
-    <canvas id="canvas" width="" height=""></canvas>
-    <img id="START" src="#" onclick="go()"><br>
--->
   </body>
 </html>
