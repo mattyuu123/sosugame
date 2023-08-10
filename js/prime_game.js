@@ -34,6 +34,9 @@ window.onload = function(){
     score = 0;
     $('#score').text(String(score));
 
+    $('body').on('dblclick', function(e) {
+      e.preventDefault();
+    });
     init_game_board();
 }
 
