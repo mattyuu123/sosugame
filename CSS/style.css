@@ -10,14 +10,13 @@ body {
   align-items: center;  
   position: relative;
   line-height: 1.5;
+  background-color: #8104bb;
 }
 
 .gamearea {
   margin:0 auto;
-  background-color: #8104bb;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
   text-align: center;
 }
 .gamearea_head {
